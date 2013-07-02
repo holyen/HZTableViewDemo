@@ -10,22 +10,61 @@
 
 @implementation HZTableView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:frame style:style];
     if (self) {
-        // Initialization code
+        EGORefreshTableHeaderView *headerView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.f, - self.bounds.size.height, self.bounds.size.width, self.bounds.size.height)];
+        headerView.delegate = self;
+        [self addSubview:headerView];
+        _refreshHeaderView = headerView;
+        [_refreshHeaderView refreshLastUpdatedDate];
+        self.delegate = self;
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void)startUpdating
 {
-    // Drawing code
+    _reloading = YES;
+    [_tableViewDelegate startUpdatingInHZTableView:self];
 }
-*/
+
+- (void)stopUpdating
+{
+    _reloading = NO;
+    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self];
+}
+
+#pragma mark -
+#pragma mark - UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+#pragma mark -
+#pragma mark - EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
+{
+    [self startUpdating];
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
+{
+    return _reloading;
+}
+
+- (NSDate *)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView *)view
+{
+    return [NSDate date];
+}
 
 @end

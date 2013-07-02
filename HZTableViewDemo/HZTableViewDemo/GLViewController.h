@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HZTableView.h"
 
-@interface GLViewController : UIViewController
+@interface GLViewController : UIViewController <UITableViewDataSource, HZTableViewDelegate>
+{
+    HZTableView *_tableView;
+}
 
 @end

@@ -6,12 +6,24 @@
 //  Copyright (c) 2013年 Holyen Zou. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "EGORefreshTableHeaderView.h"
+@class HZTableView;
+@protocol HZTableViewDelegate <NSObject>
 
-@interface HZTableView : UITableView <UITableViewDelegate, UITableViewDataSource>
+@required
 
-@property (nonatomic, strong) UIView *headerView;
+- (void)startUpdatingInHZTableView:(HZTableView *)tableView;
 
+@end
 
+@interface HZTableView : UITableView <EGORefreshTableHeaderDelegate, UITableViewDelegate>
+{
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _reloading;
+}
+
+@property (nonatomic, weak) id<HZTableViewDelegate> tableViewDelegate;
+
+- (void)stopUpdating;
 
 @end
