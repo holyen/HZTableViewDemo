@@ -34,6 +34,33 @@
 {
     _reloading = NO;
     [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self];
+    
+    if (_refreshFooterView) {
+        [_refreshFooterView egoRefreshScrollViewDataSourceDidFinishedLoading:self];
+        [self setFooterView];
+    }
+}
+
+- (void)reloadData
+{
+    [super reloadData];
+    [self setFooterView];
+}
+
+- (void)setFooterView
+{
+    CGFloat height = self.contentSize.height;//MAX(self.contentSize.height, self.frame.size.height);
+    if (_refreshFooterView && [_refreshFooterView superview]) {
+        _refreshFooterView.frame = CGRectMake(0.0f, height, self.bounds.size.width, self.bounds.size.height);
+    } else {
+        _refreshFooterView = [[EGORefreshTableFooterView alloc] initWithFrame:
+                              CGRectMake(0.0f, height, self.bounds.size.width, self.bounds.size.height)];
+        _refreshFooterView.delegate = self;
+        [self addSubview:_refreshFooterView];
+    }
+    if (_refreshFooterView) {
+        [_refreshFooterView refreshLastUpdatedDate];
+    }
 }
 
 #pragma mark -
@@ -41,28 +68,36 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (_reloading) {
+        return;
+    }
     [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    [_refreshFooterView egoRefreshScrollViewDidScroll:scrollView];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    if (_reloading) {
+        return;
+    }
     [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+    [_refreshFooterView egoRefreshScrollViewDidEndDragging:scrollView];
 }
 
 #pragma mark -
-#pragma mark - EGORefreshTableHeaderDelegate Methods
+#pragma mark - EGORefreshTableDelegate Methods
 
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
+- (void)egoRefreshTableDidTriggerRefresh:(EGORefreshPos)aRefreshPos
 {
     [self startUpdating];
 }
 
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
+- (BOOL)egoRefreshTableDataSourceIsLoading:(UIView*)view
 {
     return _reloading;
 }
 
-- (NSDate *)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView *)view
+- (NSDate*)egoRefreshTableDataSourceLastUpdated:(UIView*)view
 {
     return [NSDate date];
 }

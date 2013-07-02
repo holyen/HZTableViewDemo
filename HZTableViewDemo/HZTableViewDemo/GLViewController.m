@@ -17,10 +17,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _tableView = [[HZTableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    CGRect rectOfTableView = self.view.bounds;
+    _tableView = [[HZTableView alloc] initWithFrame:rectOfTableView style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.tableViewDelegate = self;
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_tableView];
+    [_tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -33,7 +36,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return 15;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
@@ -43,8 +46,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.textLabel.text = @"cellTitle";
     }
-        
     return cell;
 }
 

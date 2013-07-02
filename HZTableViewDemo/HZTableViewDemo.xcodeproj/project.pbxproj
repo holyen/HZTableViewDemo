@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E0EA9C01782844C000566FE /* EGORefreshTableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0EA9BF1782844C000566FE /* EGORefreshTableFooterView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9E356A7217826B96008573F3 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E356A7117826B96008573F3 /* EGORefreshTableHeaderView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9E356A7717826D46008573F3 /* TableViewResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9E356A7617826D46008573F3 /* TableViewResource.bundle */; };
 		9E356A7917826E5A008573F3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E356A7817826E5A008573F3 /* QuartzCore.framework */; };
@@ -25,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E0EA9BE1782844C000566FE /* EGORefreshTableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableFooterView.h; sourceTree = "<group>"; };
+		9E0EA9BF1782844C000566FE /* EGORefreshTableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableFooterView.m; sourceTree = "<group>"; };
+		9E0EA9C11782846E000566FE /* EGOViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGOViewCommon.h; sourceTree = "<group>"; };
 		9E356A7017826B96008573F3 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		9E356A7117826B96008573F3 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		9E356A7617826D46008573F3 /* TableViewResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TableViewResource.bundle; sourceTree = "<group>"; };
@@ -68,6 +72,9 @@
 			isa = PBXGroup;
 			children = (
 				9E356A7617826D46008573F3 /* TableViewResource.bundle */,
+				9E0EA9C11782846E000566FE /* EGOViewCommon.h */,
+				9E0EA9BE1782844C000566FE /* EGORefreshTableFooterView.h */,
+				9E0EA9BF1782844C000566FE /* EGORefreshTableFooterView.m */,
 				9E356A7017826B96008573F3 /* EGORefreshTableHeaderView.h */,
 				9E356A7117826B96008573F3 /* EGORefreshTableHeaderView.m */,
 			);
@@ -214,6 +221,7 @@
 				9E9B94B81781319900DC7E18 /* GLViewController.m in Sources */,
 				9E9B94C41781325B00DC7E18 /* HZTableView.m in Sources */,
 				9E356A7217826B96008573F3 /* EGORefreshTableHeaderView.m in Sources */,
+				9E0EA9C01782844C000566FE /* EGORefreshTableFooterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

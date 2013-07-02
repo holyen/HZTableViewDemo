@@ -7,6 +7,7 @@
 //
 
 #import "EGORefreshTableHeaderView.h"
+#import "EGORefreshTableFooterView.h"
 @class HZTableView;
 @protocol HZTableViewDelegate <NSObject>
 
@@ -16,9 +17,10 @@
 
 @end
 
-@interface HZTableView : UITableView <EGORefreshTableHeaderDelegate, UITableViewDelegate>
+@interface HZTableView : UITableView <UITableViewDelegate, EGORefreshTableDelegate>
 {
     EGORefreshTableHeaderView *_refreshHeaderView;
+    EGORefreshTableFooterView *_refreshFooterView;
     BOOL _reloading;
 }
 
